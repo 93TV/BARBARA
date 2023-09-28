@@ -2,12 +2,12 @@
  * IEindwerkCollectie.java:Student
  * @author thibe
  * @version 28/09/2023
- */public class Student {
+ */public class Student implements Comparable<Student>{
      private String voornaam;
      private String familienaam;
-     private String studentennummer;
+     private int studentennummer;
 
-    public Student(String voornaam, String familienaam, String studentennummer) {
+    public Student(String familienaam,String voornaam, int studentennummer) {
         this.voornaam = voornaam;
         this.familienaam = familienaam;
         this.studentennummer = studentennummer;
@@ -29,11 +29,22 @@
         this.familienaam = familienaam;
     }
 
-    public String getStudentennummer() {
+    public int getStudentennummer() {
         return studentennummer;
     }
 
-    public void setStudentennummer(String studentennummer) {
-        this.studentennummer = studentennummer;
+
+    @Override
+    public String toString() {
+        return familienaam + " " + familienaam;
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        if ((this.familienaam.compareTo(o.getFamilienaam())) < 0) return -1;
+        else if ((this.familienaam.compareTo(o.getFamilienaam())) > 0) return 1;
+        else if ((this.voornaam.compareTo(o.getVoornaam())) < 0) return -1;
+        else if ((this.voornaam.compareTo(o.getVoornaam())) > 0) return 1;
+        return 0;
     }
 }
