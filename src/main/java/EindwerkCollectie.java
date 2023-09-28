@@ -12,6 +12,8 @@ public class EindwerkCollectie{
         Map<Integer, Eindwerk> treemap = new TreeMap<>();
 
 
+
+
     }
 
 }
