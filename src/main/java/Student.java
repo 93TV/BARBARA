@@ -2,7 +2,7 @@
  * IEindwerkCollectie.java:Student
  * @author thibe
  * @version 28/09/2023
- */public class Student {
+ */public class Student implements Comparable<Student>{
      private String voornaam;
      private String familienaam;
      private String studentennummer;
@@ -35,5 +35,14 @@
 
     public void setStudentennummer(String studentennummer) {
         this.studentennummer = studentennummer;
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        if ((this.familienaam.compareTo(o.familienaam)) < 0) return -1;
+        if ((this.familienaam.compareTo(o.familienaam)) > 0) return 1;
+        else if ((this.voornaam.compareTo(o.getVoornaam())) < 0) return -1;
+        else if ((this.voornaam.compareTo(o.getVoornaam())) > 0) return 1;
+        else return 0;
     }
 }
