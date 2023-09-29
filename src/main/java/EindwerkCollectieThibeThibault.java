@@ -37,24 +37,31 @@ public class EindwerkCollectieThibeThibault implements IEindwerkCollectie {
         }
     }
 
-
     @Override
     public Eindwerk[] getEindwerkenVanOpleiding(String opleiding) {
-        SortedSet<Eindwerk> temp = eindwerken.get(opleiding);
-        return new Eindwerk[0];
+        SortedSet<Eindwerk> temp =  eindwerken.get(opleiding);
+        return temp.toArray(new Eindwerk[0]);
     }
 
     @Override
     public void verwijder(Eindwerk eindwerk) {
-
+        SortedSet<Eindwerk> temp = eindwerken.get(eindwerk.getOpleiding());
+        temp.remove(eindwerk);
     }
 
     @Override
     public void voegToe(Eindwerk eindwerk) {
-
+        if (eindwerken.containsKey(eindwerk.getOpleiding())) {
+            SortedSet<Eindwerk> temp = eindwerken.get(eindwerk.getOpleiding());
+            temp.add(eindwerk);
+            eindwerken.replace(eindwerk.getOpleiding(), temp);
+        } else {
+            eindwerken.put(eindwerk.getOpleiding(), studentenTree);
+        }
     }
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
+        EindwerkCollectieThibeThibault et = new EindwerkCollectieThibeThibault();
+        et.leesBestand();
     }
 }
