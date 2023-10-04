@@ -4,7 +4,7 @@
  * @author thibe
  * @version 28/09/2023
  */
-public class Eindwerk implements Comparable<Eindwerk>{
+public class Eindwerk implements Comparable<Eindwerk> {
     private String titel;
     private int jaartal;
     private String opleiding;
@@ -51,10 +51,10 @@ public class Eindwerk implements Comparable<Eindwerk>{
 
     @Override
     public String toString() {
-        return  student + " " + titel;
+        return student + " " + titel + "\n";
     }
 
-        @Override
+    @Override
     public int compareTo(Eindwerk o) {
         if (this.student.compareTo(o.getStudent()) < 0) return -1;
         else if (this.student.compareTo(o.getStudent()) > 0) return 1;
