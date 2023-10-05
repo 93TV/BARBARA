@@ -51,6 +51,8 @@ public class EindwerkCollectieThibeThibault implements IEindwerkCollectie {
 
     @Override
     public void voegToe(Eindwerk eindwerk) {
+        studentenTree = new TreeSet<Eindwerk>();
+        studentenTree.add(eindwerk);
         if (eindwerken.containsKey(eindwerk.getOpleiding())) {
             SortedSet<Eindwerk> temp = eindwerken.get(eindwerk.getOpleiding());
             temp.add(eindwerk);
