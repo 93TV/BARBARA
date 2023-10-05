@@ -23,7 +23,7 @@ public class EindwerkCollectieThibeThibault implements IEindwerkCollectie {
         File file = new File("src/main/java/eindwerken.txt");
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
-
+ // test
         while (br.readLine() != null) {
             String line = br.readLine();
             String[] sliced = line.split("\\$");
