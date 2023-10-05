@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * IEindwerkCollectie.java:Student
  * @author thibe
@@ -12,6 +14,13 @@
         this.familienaam = familienaam;
         this.studentennummer = studentennummer;
     }
+
+    private String generateUniekNummer(String familienaam, String voornaam) {
+
+            String initials = familienaam.substring(0, 1) + voornaam.substring(0, 1);
+            int randomNumber = (int) (111111 + (Math.random() * 999999));
+            return initials + randomNumber;
+        }
 
     public String getVoornaam() {
         return voornaam;

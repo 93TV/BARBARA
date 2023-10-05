@@ -7,8 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="AlgoDataLabo1" />
-        <module name="BARBARA" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="BARBARA" target="19" />
+    </bytecodeTargetLevel>
   </component>
 </project>
