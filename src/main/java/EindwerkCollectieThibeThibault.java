@@ -11,42 +11,69 @@ import java.util.*;
  * @version 28/09/2023
  */
 public class EindwerkCollectieThibeThibault implements IEindwerkCollectie {
+    public SortedMap<String, SortedSet<Eindwerk>> getEindwerken() {
+        return eindwerken;
+    }
+
     private SortedMap<String, SortedSet<Eindwerk>> eindwerken = new TreeMap<>();
     private SortedSet<Eindwerk> studentenTree;
+
     public void leesBestand() throws IOException {
+
         File file = new File("src/main/java/eindwerken.txt");
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
-        int i = 0;
-        while (br.readLine() != null && i != 100 ) {
+
+        while (br.readLine() != null) {
             String line = br.readLine();
             String[] sliced = line.split("\\$");
-            Student student = new Student(sliced[0], sliced[1], Integer.parseInt(sliced[2]));
-            Eindwerk eindwerk = new Eindwerk(sliced[3], Integer.parseInt(sliced[4]), sliced[5], student);
-            i++;
-            if (eindwerken.containsKey(eindwerk.getOpleiding())) {
-                SortedSet<Eindwerk> temp = eindwerken.get(eindwerk.getOpleiding());
-                temp.add(eindwerk);
-                eindwerken.replace(eindwerk.getOpleiding(), temp);
+            Eindwerk eindwerk = maakEindwerk(sliced);
+            if (bestaatOpleidingAl(eindwerk)) {
+                voegEindewerkToeAanBestaandeOpleiding(eindwerk);
             } else {
-                studentenTree = new TreeSet<Eindwerk>();
-                studentenTree.add(eindwerk);
-                eindwerken.put(eindwerk.getOpleiding(), studentenTree);
+                voegEindwerkToeMetNieuweOpleiding(eindwerk);
             }
         }
-        System.out.println(eindwerken);
+    }
+
+    private String[] stringSlicer(String line) {
+        return line.split("\\$");
+    }
+
+    private Student maakStudent(String[] slicedString) {
+        return new Student(slicedString[0], slicedString[1], Integer.parseInt(slicedString[2]));
+    }
+
+    private Eindwerk maakEindwerk(String[] slicedString) {
+        return new Eindwerk(slicedString[3], Integer.parseInt(slicedString[4]), slicedString[5],
+                maakStudent(slicedString));
+    }
+
+    private boolean bestaatOpleidingAl(Eindwerk eindwerk) {
+        return (eindwerken.containsKey(eindwerk.getOpleiding()));
+    }
+
+    private void voegEindewerkToeAanBestaandeOpleiding(Eindwerk eindwerk) {
+        SortedSet<Eindwerk> temp = eindwerken.get(eindwerk.getOpleiding());
+        temp.add(eindwerk);
+        eindwerken.replace(eindwerk.getOpleiding(), temp);
+    }
+
+    private void voegEindwerkToeMetNieuweOpleiding(Eindwerk eindwerk) {
+        studentenTree = new TreeSet<>();
+        studentenTree.add(eindwerk);
+        eindwerken.put(eindwerk.getOpleiding(), studentenTree);
     }
 
     @Override
     public Eindwerk[] getEindwerkenVanOpleiding(String opleiding) {
-        SortedSet<Eindwerk> temp =  eindwerken.get(opleiding);
+        SortedSet<Eindwerk> temp = eindwerken.get(opleiding);
         return temp.toArray(new Eindwerk[0]);
     }
 
     @Override
     public void verwijder(Eindwerk eindwerk) {
-        SortedSet<Eindwerk> temp = eindwerken.get(eindwerk.getOpleiding());
-        temp.remove(eindwerk);
+        eindwerken.get(eindwerk.getOpleiding()).remove(eindwerk);
     }
 
     @Override
