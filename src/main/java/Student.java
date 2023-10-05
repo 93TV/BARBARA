@@ -14,12 +14,19 @@ import java.util.Random;
         this.familienaam = familienaam;
         this.studentennummer = studentennummer;
     }
+    public Student(String familienaam, String voornaam) {
+        this.voornaam = voornaam;
+        this.familienaam = familienaam;
+        this.studentennummer = generateUniekNummer(familienaam, voornaam);
+    }
 
-    private String generateUniekNummer(String familienaam, String voornaam) {
+
+
+    private int generateUniekNummer(String familienaam, String voornaam) {
 
             String initials = familienaam.substring(0, 1) + voornaam.substring(0, 1);
             int randomNumber = (int) (111111 + (Math.random() * 999999));
-            return initials + randomNumber;
+            return  randomNumber;
         }
 
     public String getVoornaam() {
